@@ -989,7 +989,6 @@ static int stml0xx_probe(struct spi_device *spi)
 			ps_stml0xx->input_dev->name, err);
 		goto err9;
 	}
-#ifdef CONFIG_STML0XX_LED
 	ps_stml0xx->led_cdev.name =  STML0XX_LED_NAME;
 	ps_stml0xx->led_cdev.brightness_set = stml0xx_brightness_set;
 	ps_stml0xx->led_cdev.brightness_get = stml0xx_brightness_get;
@@ -1011,7 +1010,6 @@ static int stml0xx_probe(struct spi_device *spi)
 			"couldn't register LED attribute sysfs group\n");
 		goto err11;
 	}
-#endif
 
 	ps_stml0xx->is_suspended = false;
 
@@ -1026,12 +1024,10 @@ static int stml0xx_probe(struct spi_device *spi)
 	dev_dbg(&spi->dev, "probed finished");
 
 	return 0;
-#ifdef CONFIG_STML0XX_LED
 err11:
 	led_classdev_unregister(&ps_stml0xx->led_cdev);
 err10:
 	input_free_device(ps_stml0xx->input_dev);
-#endif
 err9:
 	input_free_device(ps_stml0xx->input_dev);
 err8:
@@ -1075,9 +1071,7 @@ static int stml0xx_remove(struct spi_device *spi)
 {
 	struct stml0xx_data *ps_stml0xx = spi_get_drvdata(spi);
 
-#ifdef CONFIG_STML0XX_LED
 	led_classdev_unregister(&ps_stml0xx->led_cdev);
-#endif
 
 	switch_dev_unregister(&ps_stml0xx->dsdev);
 	switch_dev_unregister(&ps_stml0xx->edsdev);
