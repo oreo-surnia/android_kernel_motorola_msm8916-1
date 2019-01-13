@@ -142,7 +142,7 @@ static ssize_t panel_debug_base_reg_write(struct file *file,
 	struct mdss_debug_base *dbg = file->private_data;
 	char buf[PANEL_TX_MAX_BUF] = {0x0};
 	char reg[PANEL_TX_MAX_BUF] = {0x0};
-	u32 len = 0, step = 0, value = 0;
+	u32 len = 0,  value = 0;
 	char *bufp;
 
 	struct mdss_data_type *mdata = mdss_res;
